@@ -1,5 +1,4 @@
 class Card
-
   attr_accessor :rank, :suit
 
   def initialize(rank, suit)
@@ -14,11 +13,9 @@ class Card
   def ==(card)
     @rank == card.rank and @suit == card.suit
   end
-
 end
 
 class Hand
-
   def initialize(cards)
     @cards = cards.dup
   end
@@ -32,11 +29,9 @@ class Hand
       [:queen, :king].all? { |rank| @cards.include? Card.new(rank, suit) }
     end
   end
-
 end
 
 class WarHand < Hand
-
   def play_card
     @cards.delete_at(rand(@cards.length))
   end
@@ -44,11 +39,9 @@ class WarHand < Hand
   def allow_face_up?
     @cards.size <= 3
   end
-
 end
 
 class BeloteHand < Hand
-
   def highest_of_suit(suit)
     cards_of_suit = @cards.select { |card| card.suit == suit }
     cards_of_suit.max_by { |card| BeloteDeck::RANKS.index(card.rank) }
@@ -83,7 +76,6 @@ class BeloteHand < Hand
   end
 
   private
-
   def cards_in_a_row?(count)
     BeloteDeck::SUITS.any? do |suit|
       cards_of_suit = @cards.select { |card| card.suit == suit }
@@ -100,11 +92,9 @@ class BeloteHand < Hand
   def carre?(rank)
     @cards.count { |card| card.rank == rank } == 4
   end
-
 end
 
 class SixtySixHand < Hand
-
   def twenty?(trump_suit)
     has_queen_and_king?(SixtySixDeck::SUITS - trump_suit)
   end
@@ -112,11 +102,9 @@ class SixtySixHand < Hand
   def forty?(trump_suit)
     has_queen_and_king?([trump_suit])
   end
-
 end
 
 class Deck
-
   include Enumerable
 
   RANKS = [2, 3, 4, 5, 6, 7, 8, 9, 10, :jack, :queen, :king, :ace].freeze
@@ -182,28 +170,21 @@ class Deck
   def deal
     self.class::DEAL_CLASS.new(@cards.slice!(0, self.class::DEAL_COUNT))
   end
-
 end
 
 class WarDeck < Deck
-
   DEAL_COUNT = 26
   DEAL_CLASS = WarHand
-
 end
 
 class BeloteDeck < Deck
-
   RANKS = [7, 8, 9, :jack, :queen, :king, 10, :ace].freeze
   DEAL_COUNT = 8
   DEAL_CLASS = BeloteHand
-
 end
 
 class SixtySixDeck < Deck
-
   RANKS = [9, :jack, :queen, :king, 10, :ace].freeze
   DEAL_COUNT = 6
   DEAL_CLASS = SixtySixHand
-
 end
