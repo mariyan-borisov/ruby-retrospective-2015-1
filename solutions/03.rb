@@ -1,15 +1,12 @@
 class Integer
-
   def prime?
     return false if self < 2
     return true if self == 2
     [*2...self].all? { |number| self % number != 0 }
   end
-
 end
 
 class RationalSequence
-
   include Enumerable
 
   def initialize(count)
@@ -33,7 +30,6 @@ class RationalSequence
   end
 
   private
-
   def increment_direction(i, j, direction, direction_changed)
     if j == 1 and not direction_changed
       direction_changed = true
@@ -50,11 +46,9 @@ class RationalSequence
     end
     [i, j, direction, direction_changed]
   end
-
 end
 
 class PrimeSequence
-
   include Enumerable
 
   def initialize(count)
@@ -65,11 +59,9 @@ class PrimeSequence
     prime_numbers = (2..Float::INFINITY).lazy.select { |number| number.prime? }.take(@count)
     prime_numbers.each { |number| yield number }
   end
-
 end
 
 class FibonacciSequence
-
   include Enumerable
 
   def initialize(count, first: 1, second: 1)
@@ -86,7 +78,6 @@ class FibonacciSequence
       yield i
     end
   end
-
 end
 
 module DrunkenMathematician
@@ -115,5 +106,4 @@ module DrunkenMathematician
       sum <= fibonacci_number
     end
   end
-
 end
