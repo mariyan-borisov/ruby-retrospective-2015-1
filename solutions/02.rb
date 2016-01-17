@@ -10,8 +10,8 @@ def move(snake, direction)
 end
 
 def new_food(food, snake, dimensions)
-  x_axis_indexes = (0..dimensions[:width] - 1).to_a
-  y_axis_indexes = (0..dimensions[:height] - 1).to_a
+  x_axis_indexes = (0...dimensions[:width]).to_a
+  y_axis_indexes = (0...dimensions[:height]).to_a
   free_blocks = x_axis_indexes.product(y_axis_indexes) - food - snake
   free_blocks.sample
 end
