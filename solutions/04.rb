@@ -96,7 +96,7 @@ end
 
 class SixtySixHand < Hand
   def twenty?(trump_suit)
-    has_queen_and_king?(SixtySixDeck::SUITS - trump_suit)
+    has_queen_and_king?(SixtySixDeck::SUITS - [trump_suit])
   end
 
   def forty?(trump_suit)
