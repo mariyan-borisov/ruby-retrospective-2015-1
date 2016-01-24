@@ -98,7 +98,7 @@ module DrunkenMathematician
 
   def worthless(n)
     fibonacci_number = FibonacciSequence.new(n).to_a.last
-    rational_numbers = RationalSequence.new(n).to_a
+    rational_numbers = RationalSequence.new(fibonacci_number ** 2)
     sum = 0
     rational_numbers.take_while do |number|
       sum += number
