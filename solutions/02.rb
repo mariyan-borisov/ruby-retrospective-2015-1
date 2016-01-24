@@ -5,7 +5,7 @@ end
 
 def move(snake, direction)
   moved_snake = grow(snake, direction)
-  moved_snake.delete_at 0
+  moved_snake.shift
   moved_snake
 end
 
@@ -19,16 +19,12 @@ end
 def obstacle_ahead?(snake, direction, dimensions)
   moved_snake = move(snake, direction)
   head_position = moved_snake.last
-  head_position.first < 0 or head_position.first >= dimensions[:width] \
-    or head_position.last < 0 or head_position.last >= dimensions[:height] \
-    or snake.include?(head_position)
+  head_position[0] < 0 or head_position[0] >= dimensions[:width] or
+    head_position[1] < 0 or head_position[1] >= dimensions[:height] or
+    snake.include?(head_position)
 end
 
 def danger?(snake, direction, dimensions)
-  if obstacle_ahead?(snake, direction, dimensions)
-    true
-  else
-    moved_snake = move(snake, direction)
-    obstacle_ahead?(moved_snake, direction, dimensions)
-  end
+  obstacle_ahead?(snake, direction, dimensions) or
+    obstacle_ahead?(move(snake, direction), direction, dimensions)
 end
