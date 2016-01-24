@@ -21,7 +21,7 @@ def obstacle_ahead?(snake, direction, dimensions)
   head_position = moved_snake.last
   head_position.first < 0 or head_position.first >= dimensions[:width] \
     or head_position.last < 0 or head_position.last >= dimensions[:height] \
-    or moved_snake.index(head_position) != moved_snake.size - 1
+    or snake.include?(head_position)
 end
 
 def danger?(snake, direction, dimensions)
