@@ -74,8 +74,8 @@ class FibonacciSequence
     i = @first_number
     j = @second_number
     @count.times do |x|
-      i, j = j, i + j
       yield i
+      i, j = j, i + j
     end
   end
 end
