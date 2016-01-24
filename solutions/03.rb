@@ -1,8 +1,7 @@
 class Integer
   def prime?
-    return false if self < 2
-    return true if self == 2
-    [*2...self].all? { |number| self % number != 0 }
+    return false if self <= 1
+    2.upto(self**0.5).all? { |number| self % number != 0 }
   end
 end
 
