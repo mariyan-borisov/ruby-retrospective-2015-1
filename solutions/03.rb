@@ -70,11 +70,11 @@ class FibonacciSequence
   end
 
   def each
-    i = @first_number
-    j = @second_number
-    @count.times do |x|
-      yield i
-      i, j = j, i + j
+    previous = @first_number
+    current = @second_number
+    @count.times do |_|
+      yield previous
+      previous, current = current, previous + current
     end
   end
 end
