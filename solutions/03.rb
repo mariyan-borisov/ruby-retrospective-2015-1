@@ -20,7 +20,7 @@ class RationalSequence
     @count.times do |x|
       new_number = Rational(i, j)
       while unique_numbers.include? new_number
-        i, j, direction, changed = *increment_direction(i, j, direction, changed)
+        i, j, direction, changed = *next_number(i, j, direction, changed)
         new_number = Rational(i, j)
       end
       unique_numbers << new_number
@@ -29,7 +29,7 @@ class RationalSequence
   end
 
   private
-  def increment_direction(i, j, direction, direction_changed)
+  def next_number(i, j, direction, direction_changed)
     if j == 1 and not direction_changed
       direction_changed = true
       direction = -direction
