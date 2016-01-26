@@ -77,15 +77,14 @@ class BeloteHand < Hand
 
   private
   def cards_in_a_row?(count)
-    BeloteDeck::SUITS.any? do |suit|
-      cards_of_suit = @cards.select { |card| card.suit == suit }
-      cards_of_suit.map!(&:rank)
-      ranks_included = BeloteDeck::RANKS.map do |rank|
-        cards_of_suit.include?(rank)
+    sorted_cards = @cards.sort_by { |card| WarDeck::RANKS.index card.rank }
+    WarDeck::SUITS.any? do |suit|
+      ranks = sorted_cards.select { |card| card.suit == suit }.map do |card|
+        WarDeck::RANKS.index card.rank
       end
-      chunks = ranks_included.chunk { |included| included }
-      consecutive_chunks = chunks.select { |chunk| chunk.first }
-      consecutive_chunks.max_by { |chunk| chunk.last.size }.last.size == count
+      ranks.each_cons(count).any? do |consecutive|
+        consecutive.last - consecutive.first == count - 1
+      end
     end
   end
 
