@@ -159,7 +159,6 @@ class Deck
         suits.index(first_card.suit) <=> suits.index(second_card.suit)
       end
     end
-    self
   end
 
   def to_s
